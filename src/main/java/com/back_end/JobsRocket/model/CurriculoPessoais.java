@@ -12,7 +12,7 @@ public class CurriculoPessoais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Integer pessoais_id;
 
     @Column(nullable = false)
     private Date dataNascimento;

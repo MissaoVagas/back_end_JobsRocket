@@ -11,7 +11,7 @@ public class CurriculoPrincipais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Integer principais_id;
 
     @Column(nullable = false)
     private String username;
