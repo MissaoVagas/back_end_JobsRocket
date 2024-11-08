@@ -12,6 +12,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "candidatos")
 public class Candidato extends User {
+	
+	
     private String campoDeInteresse;
 
     @OneToOne
