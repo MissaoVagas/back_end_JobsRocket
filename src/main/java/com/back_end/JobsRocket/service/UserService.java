@@ -90,7 +90,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public RecrutadorDto atualizarCandidato(Recrutador recrutador, Integer recrutadorId) {
+	public RecrutadorDto atualizarRecrutador(Recrutador recrutador, Integer recrutadorId) {
 		Recrutador recrutadorExistente = recrutadorRepository.findById(recrutadorId)
                 .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado com o ID: " + recrutadorId));
 		
