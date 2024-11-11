@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.back_end.JobsRocket.dto.CandidatoDto;
 import com.back_end.JobsRocket.dto.RecrutadorDto;
 import com.back_end.JobsRocket.dto.UserDto;
+import com.back_end.JobsRocket.exceptions.PasswordValidationError;
 import com.back_end.JobsRocket.model.Candidato;
 import com.back_end.JobsRocket.model.Recrutador;
 import com.back_end.JobsRocket.model.User;
@@ -34,7 +35,11 @@ public class UserService {
 	private RecrutadorRepository recrutadorRepository;
 	
 	@Transactional
-	public UserDto criarUsuario(User usuario) {
+	public UserDto criarUsuario(User usuario) throws PasswordValidationError {
+		
+		if(!Validator.validadorDeSenha(usuario.getSenha())) {
+			throw new PasswordValidationError("Senha deve seguir o padrao:\n -1 Letra  maíuscula,\n -1 letra minuscula,\n -1 numero,\n -1 caractere especial,\n -tamanho mínimo de 8 carcteres");
+		}
 		
 		Role role = usuario.getRole();
 		
@@ -74,9 +79,13 @@ public class UserService {
     }
 	
 	@Transactional
-	public CandidatoDto atualizarCandidato(Candidato candidato, Integer candidatoId) {
+	public CandidatoDto atualizarCandidato(Candidato candidato, Integer candidatoId) throws PasswordValidationError {
 		Candidato candidatoExistente = candidatoRepository.findById(candidatoId)
                 .orElseThrow(() -> new EntityNotFoundException("Candidato não encontrado com o ID: " + candidatoId));
+		
+		if(!Validator.validadorDeSenha(candidato.getSenha())) {
+			throw new PasswordValidationError("Senha deve seguir o padrao:\n -1 Letra  maíuscula,\n -1 letra minuscula,\n -1 numero,\n -1 caractere especial,\n -tamanho mínimo de 8 carcteres");
+		}
 		
 		candidatoExistente.setNome(candidato.getNome());
 		candidatoExistente.setEmail(candidato.getEmail());
@@ -90,9 +99,13 @@ public class UserService {
 	}
 	
 	@Transactional
-	public RecrutadorDto atualizarRecrutador(Recrutador recrutador, Integer recrutadorId) {
+	public RecrutadorDto atualizarRecrutador(Recrutador recrutador, Integer recrutadorId) throws PasswordValidationError {
 		Recrutador recrutadorExistente = recrutadorRepository.findById(recrutadorId)
                 .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado com o ID: " + recrutadorId));
+		
+		if(!Validator.validadorDeSenha(recrutador.getSenha())) {
+			throw new PasswordValidationError("Senha deve seguir o padrao:\n -1 Letra  maíuscula,\n -1 letra minuscula,\n -1 numero,\n -1 caractere especial,\n -tamanho mínimo de 8 carcteres");
+		}
 		
 		recrutadorExistente.setNome(recrutador.getNome());
 		recrutadorExistente.setEmail(recrutador.getEmail());
