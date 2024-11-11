@@ -1,20 +1,19 @@
 package com.back_end.JobsRocket.dto;
 
+
+import com.back_end.JobsRocket.model.Curriculo;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
- class CandidatoDto {
-	
-	private Integer user_id;
-	
-	private String nome;
-	
-	private String email;
+public class CandidatoDto extends UserDto {
 	
 	private String campoDeInteresse;
 
-    private Integer curriculo_id;
+    private Curriculo curriculo;
 
 }
