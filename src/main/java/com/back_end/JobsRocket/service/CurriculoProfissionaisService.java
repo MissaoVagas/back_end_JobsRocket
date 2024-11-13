@@ -1,6 +1,7 @@
 package com.back_end.JobsRocket.service;
 
 import com.back_end.JobsRocket.model.CurriculoProfissionais;
+import com.back_end.JobsRocket.model.enums.TipoEmprego;
 import com.back_end.JobsRocket.repository.CurriculoProfissionaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

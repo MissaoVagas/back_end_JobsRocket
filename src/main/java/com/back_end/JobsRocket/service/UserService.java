@@ -116,5 +116,20 @@ public class UserService {
 		
 
 	}
+	
+	@Transactional
+	public UserDto acharUsuarioPorId(Integer userId) {
+		User usuario = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o ID: " + userId));
+		return DtoConverter.toUserDTO(usuario);
+	}
+	
+	@Transactional
+	public UserDto acharUsuarioPorEmail(String email) {
+		User usuario = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o email: " + email));
+		
+		return DtoConverter.toUserDTO(usuario);
+	}
 
 }
