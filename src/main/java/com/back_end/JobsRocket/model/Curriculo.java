@@ -2,6 +2,7 @@ package com.back_end.JobsRocket.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,13 +33,13 @@ public class Curriculo {
     @JoinColumn(name = "pessoais_id")
     private CurriculoPessoais pessoais;
     
-    @OneToMany
+    @OneToMany(mappedBy = "curriculo", cascade = CascadeType.ALL)
     private List<CurriculoAcademicos> academicos;
     
-    @OneToMany
+    @OneToMany(mappedBy = "curriculo", cascade = CascadeType.ALL)
     private List<CurriculoProfissionais> profissionais;
     
-    @OneToMany
+    @OneToMany(mappedBy = "curriculo", cascade = CascadeType.ALL)
     private List<CurriculoCursos> cursos;
 
     

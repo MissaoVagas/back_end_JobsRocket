@@ -18,6 +18,9 @@ public class CurriculoCursosService {
 	CurriculoCursosRepository cursosRepository;
 	
 	public CurriculoCursos criarCurso(CurriculoCursos curso) {
+		if(curso == null) {
+			throw new IllegalArgumentException("O curso não pode estar vazio");
+		}
 		return cursosRepository.save(curso);
 	}
 	
