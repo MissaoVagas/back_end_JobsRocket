@@ -91,7 +91,7 @@ public class UserController {
             description = "Deleta um usuario do banco de dados. Não possui retorno.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Usuario deletado com sucesso"),
-			@ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
+			@ApiResponse(responseCode = "404", description = "Usuario não encontrado")
 	})
 	@DeleteMapping("/{userId}")
 	public void deleteUser(@PathVariable Integer userId) {

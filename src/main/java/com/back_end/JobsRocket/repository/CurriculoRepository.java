@@ -10,6 +10,6 @@ import com.back_end.JobsRocket.model.Curriculo;
 @Repository
 public interface CurriculoRepository extends JpaRepository<Curriculo, Integer>{
 	
-	Optional<Curriculo> findByCandidatoId(Integer candidato_id);
+	
 
 }
