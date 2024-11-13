@@ -88,7 +88,7 @@ public class UserController {
 	
 	
 	@Operation(summary = "Deleta um usuario", 
-            description = "Deleta um usuariodo banco de dados. Não possui retorno.")
+            description = "Deleta um usuario do banco de dados. Não possui retorno.")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Usuario atualizado com sucesso"),
 			@ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
@@ -96,6 +96,28 @@ public class UserController {
 	@DeleteMapping("/{userId}")
 	public void deleteUser(@PathVariable Integer userId) {
 		userService.deletarUsuario(userId);
+	}
+	
+	@Operation(summary = "Achar um usuario pelo id", 
+            description = "Acha um usuario no banco de dados pelo id. Retorna um usuário")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Usuario encontrado com sucesso"),
+			@ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
+	})
+	@GetMapping("/id/{userId}")
+	public void getUserById(@PathVariable Integer userId) {
+		userService.acharUsuarioPorId(userId);
+	}
+	
+	@Operation(summary = "Achar um usuario pelo email", 
+            description = "Acha um usuario no banco de dados pelo email. Retorna um usuário")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Usuario encontrado com sucesso"),
+			@ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
+	})
+	@GetMapping("/email/{email}")
+	public void getUserByEmail(@PathVariable String email) {
+		userService.acharUsuarioPorEmail(email);
 	}
 
 }
