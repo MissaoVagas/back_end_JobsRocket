@@ -33,7 +33,7 @@ public class Curriculo {
     private CurriculoPessoais pessoais;
     
     @OneToMany
-    private List<CurriculoAcademicas> academicas;
+    private List<CurriculoAcademicos> academicos;
     
     @OneToMany
     private List<CurriculoProfissionais> profissionais;

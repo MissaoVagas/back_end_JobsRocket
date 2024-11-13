@@ -1,6 +1,10 @@
 package com.back_end.JobsRocket.repository;
 
 import com.back_end.JobsRocket.model.CurriculoAcademicos;
+import com.back_end.JobsRocket.model.enums.Status;
+import com.back_end.JobsRocket.model.enums.TipoCurso;
+import com.back_end.JobsRocket.model.enums.TipoFormacao;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
