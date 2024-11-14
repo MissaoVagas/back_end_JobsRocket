@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class CandidatoDto extends UserDto {
+public class CandidatoResponseDto extends UserResponseDto {
 	
 	private String campoDeInteresse;
 

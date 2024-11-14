@@ -8,6 +8,7 @@ import java.util.Date;
 import com.back_end.JobsRocket.model.enums.Status;
 import com.back_end.JobsRocket.model.enums.TipoCurso;
 import com.back_end.JobsRocket.model.enums.TipoFormacao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data
@@ -47,5 +48,6 @@ public class CurriculoAcademicos {
     // Relacionamento com Curriculo (se necessário)
     @ManyToOne
     @JoinColumn(name = "curriculo_id")
+    @JsonIgnore
     private Curriculo curriculo;
 }

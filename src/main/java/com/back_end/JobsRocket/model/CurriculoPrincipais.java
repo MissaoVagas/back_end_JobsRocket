@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.io.File;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Data
 @Table(name = "curriculo_principais")
@@ -19,10 +21,11 @@ public class CurriculoPrincipais {
     @Column(nullable = false)
     private String sobre;
 
-    @Column(nullable = false)
+    @Column
     private File foto;
 
     @OneToOne
     @JoinColumn(name = "curriculo_id")
+    @JsonIgnore
     private Curriculo curriculo;
 }

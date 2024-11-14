@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back_end.JobsRocket.dto.CurriculoRequestDto;
+import com.back_end.JobsRocket.dto.CurriculoResponseDto;
 import com.back_end.JobsRocket.model.Curriculo;
 import com.back_end.JobsRocket.service.CurriculoService;
 
@@ -36,11 +38,11 @@ public class CurriculoController {
 			@ApiResponse(responseCode = "404", description = "Id do candidato não encontrado"),
 	})
 	@PostMapping("/candidato/{candidato_id}")
-	public ResponseEntity<Curriculo> saveCurriculo(
-			@RequestBody Curriculo curriculo,@PathVariable Integer candidato_id
+	public ResponseEntity<CurriculoResponseDto> saveCurriculo(
+			@RequestBody CurriculoRequestDto curriculo,@PathVariable Integer candidato_id
 			){
-		Curriculo curriculoNovo = curriculoService.criarCurriculo(curriculo, candidato_id);
-		return ResponseEntity.created(URI.create("/api/curriculo/{candidato_id}/" + curriculoNovo.getCurriculo_id())).body(curriculoNovo);
+		CurriculoResponseDto curriculoNovo = curriculoService.criarCurriculo(curriculo, candidato_id);
+		return ResponseEntity.created(URI.create("/api/curriculo/" + curriculoNovo.getCurriculo_id())).body(curriculoNovo);
 	}
 	
 	
@@ -50,7 +52,7 @@ public class CurriculoController {
 			@ApiResponse(responseCode = "200", description = "Lista encontrada")
 	})
 	@GetMapping
-	public ResponseEntity<List<Curriculo>> getCurriculos(){
+	public ResponseEntity<List<CurriculoResponseDto>> getCurriculos(){
 		return ResponseEntity.ok(curriculoService.listarCurriculos());
 	}
 	
@@ -63,7 +65,7 @@ public class CurriculoController {
 			@ApiResponse(responseCode = "404", description = "Curriculo não encontrado"),
 	})
 	@PutMapping("/{curriculo_id}")
-	public ResponseEntity<Curriculo> updateCurriculo(@RequestBody Curriculo curriculo, @PathVariable Integer curriculo_id){
+	public ResponseEntity<CurriculoResponseDto> updateCurriculo(@RequestBody Curriculo curriculo, @PathVariable Integer curriculo_id){
 		return ResponseEntity.ok(curriculoService.atualizarCurriculo(curriculo, curriculo_id));
 	}
 	
@@ -77,6 +79,17 @@ public class CurriculoController {
 	@DeleteMapping("/{curriculo_id}")
 	public void deleteCurriculo(@PathVariable Integer curriculo_id) {
 		curriculoService.deletarCurriculo(curriculo_id);
+	}
+	
+	@Operation(summary = "Achar um curriculo pelo Id", 
+            description = "Acha um curriculo no banco de dados pelo ID. Retorna o currículo encontrado.")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Curriculo encontrado com sucesso"),
+			@ApiResponse(responseCode = "404", description = "Curriculo não encontrado"),
+	})
+	@GetMapping("/{curriculo_id}")
+	public CurriculoResponseDto findCurriculoById(@PathVariable Integer curriculo_id) {
+		return curriculoService.acharCurriculoPorId(curriculo_id);
 	}
 	
 	

@@ -35,7 +35,6 @@ public class User {
 	private String email;
 	
 	@Enumerated(EnumType.STRING)
-	@NotBlank
 	private Role role;
 	
 	@Column(nullable = false)

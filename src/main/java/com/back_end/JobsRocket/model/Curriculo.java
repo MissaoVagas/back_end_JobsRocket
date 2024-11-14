@@ -25,11 +25,11 @@ public class Curriculo {
     @JoinColumn(name = "candidato_id", referencedColumnName = "user_id")
     private Candidato candidato;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "principais_id")
     private CurriculoPrincipais principais;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "pessoais_id")
     private CurriculoPessoais pessoais;
     
