@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserDto {
+public class UserResponseDto {
 	
 	private Integer user_id;
-	
 	
 	private String nome;
 	

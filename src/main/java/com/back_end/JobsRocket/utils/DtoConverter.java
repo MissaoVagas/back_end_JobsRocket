@@ -26,15 +26,15 @@ public class DtoConverter {
 
 	public static RecrutadorDto toRecrutadorDTO(Recrutador recrutador) {
     	RecrutadorDto dto = new RecrutadorDto();
-        dto.setUser_id(recrutador.getUser_id());
+    	dto.setUser_id(recrutador.getUser_id());
         dto.setNome(recrutador.getNome());
         dto.setEmail(recrutador.getEmail());
         dto.setNomeEmpresa(recrutador.getNomeEmpresa());
         return dto;
     }
 	
-	public static UserDto toUserDTO(User usuario) {
-		UserDto dto = new UserDto();
+	public static UserResponseDto toUserResponseDto(User usuario) {
+		UserResponseDto dto = new UserResponseDto();
 		dto.setUser_id(usuario.getUser_id());
 		dto.setNome(usuario.getNome());
 		dto.setEmail(usuario.getEmail());
@@ -42,11 +42,11 @@ public class DtoConverter {
 		return dto;
 	}
 	
-	public static List<UserDto> toListUserDTO(List<User> usuarios) {
-		List<UserDto> userDtos = new ArrayList<>();
+	public static List<UserResponseDto> toListUserResponseDtos(List<User> usuarios) {
+		List<UserResponseDto> userDtos = new ArrayList<>();
 		
 		for(User usuario: usuarios ) {
-			UserDto userDto = DtoConverter.toUserDTO(usuario);
+			UserResponseDto userDto = DtoConverter.toUserResponseDto(usuario);
 			userDtos.add(userDto);
 		}
 		

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back_end.JobsRocket.dto.CurriculoRequestDto;
 import com.back_end.JobsRocket.model.Curriculo;
 import com.back_end.JobsRocket.service.CurriculoService;
 
@@ -37,7 +38,7 @@ public class CurriculoController {
 	})
 	@PostMapping("/candidato/{candidato_id}")
 	public ResponseEntity<Curriculo> saveCurriculo(
-			@RequestBody Curriculo curriculo,@PathVariable Integer candidato_id
+			@RequestBody CurriculoRequestDto curriculo,@PathVariable Integer candidato_id
 			){
 		Curriculo curriculoNovo = curriculoService.criarCurriculo(curriculo, candidato_id);
 		return ResponseEntity.created(URI.create("/api/curriculo/{candidato_id}/" + curriculoNovo.getCurriculo_id())).body(curriculoNovo);

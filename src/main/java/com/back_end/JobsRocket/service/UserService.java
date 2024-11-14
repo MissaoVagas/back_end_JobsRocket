@@ -8,7 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.back_end.JobsRocket.dto.CandidatoDto;
 import com.back_end.JobsRocket.dto.RecrutadorDto;
-import com.back_end.JobsRocket.dto.UserDto;
+import com.back_end.JobsRocket.dto.UserRequestDto;
+import com.back_end.JobsRocket.dto.UserResponseDto;
 import com.back_end.JobsRocket.exceptions.PasswordValidationError;
 import com.back_end.JobsRocket.model.Candidato;
 import com.back_end.JobsRocket.model.Recrutador;
@@ -35,7 +36,9 @@ public class UserService {
 	private RecrutadorRepository recrutadorRepository;
 	
 	@Transactional
-	public UserDto criarUsuario(User usuario) throws PasswordValidationError {
+	public UserResponseDto criarUsuario(UserRequestDto usuarioRequest) throws PasswordValidationError {
+		
+		User usuario = EntityConverter.toEntityUser(usuarioRequest);
 		
 		if(!Validator.validadorDeSenha(usuario.getSenha())) {
 			throw new PasswordValidationError("Senha deve seguir o padrao:\n -1 Letra  maíuscula,\n -1 letra minuscula,\n -1 numero,\n -1 caractere especial,\n -tamanho mínimo de 8 carcteres");
@@ -57,9 +60,9 @@ public class UserService {
 		
 	}
 	
-	public List<UserDto> listarUsuarios(){
+	public List<UserResponseDto> listarUsuarios(){
 		List<User> usuarios = userRepository.findAll();
-		return DtoConverter.toListUserDTO(usuarios);
+		return DtoConverter.toListUserResponseDtos(usuarios);
 	}
 	
 	@Transactional
@@ -118,18 +121,18 @@ public class UserService {
 	}
 	
 	@Transactional
-	public UserDto acharUsuarioPorId(Integer userId) {
+	public UserResponseDto acharUsuarioPorId(Integer userId) {
 		User usuario = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o ID: " + userId));
-		return DtoConverter.toUserDTO(usuario);
+		return DtoConverter.toUserResponseDto(usuario);
 	}
 	
 	@Transactional
-	public UserDto acharUsuarioPorEmail(String email) {
+	public UserResponseDto acharUsuarioPorEmail(String email) {
 		User usuario = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o email: " + email));
 		
-		return DtoConverter.toUserDTO(usuario);
+		return DtoConverter.toUserResponseDto(usuario);
 	}
 
 }

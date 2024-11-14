@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back_end.JobsRocket.dto.CurriculoRequestDto;
 import com.back_end.JobsRocket.model.Candidato;
 import com.back_end.JobsRocket.model.Curriculo;
 import com.back_end.JobsRocket.model.CurriculoAcademicos;
@@ -15,6 +16,7 @@ import com.back_end.JobsRocket.model.CurriculoPrincipais;
 import com.back_end.JobsRocket.model.CurriculoProfissionais;
 import com.back_end.JobsRocket.repository.CandidatoRepository;
 import com.back_end.JobsRocket.repository.CurriculoRepository;
+import com.back_end.JobsRocket.utils.EntityConverter;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -44,7 +46,9 @@ public class CurriculoService {
 	
 	
 	@Transactional
-	public Curriculo criarCurriculo(Curriculo curriculo, Integer candidato_id) {
+	public Curriculo criarCurriculo(CurriculoRequestDto curriculoRequest, Integer candidato_id) {
+		
+		Curriculo curriculo = EntityConverter.toEntityCurriculo(curriculoRequest);
 		
 		Candidato candidatoExistente = candidatoRepository.findById(candidato_id)
                 .orElseThrow(() -> new EntityNotFoundException("Candidato não encontrado com o ID: " + candidato_id));

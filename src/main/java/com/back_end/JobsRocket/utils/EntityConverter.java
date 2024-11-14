@@ -9,12 +9,14 @@ import com.back_end.JobsRocket.dto.CurriculoPessoaisDto;
 import com.back_end.JobsRocket.dto.CurriculoPrincipaisDto;
 import com.back_end.JobsRocket.dto.CurriculoProfissionaisDto;
 import com.back_end.JobsRocket.dto.CurriculoRequestDto;
+import com.back_end.JobsRocket.dto.UserRequestDto;
 import com.back_end.JobsRocket.model.Curriculo;
 import com.back_end.JobsRocket.model.CurriculoAcademicos;
 import com.back_end.JobsRocket.model.CurriculoCursos;
 import com.back_end.JobsRocket.model.CurriculoPessoais;
 import com.back_end.JobsRocket.model.CurriculoPrincipais;
 import com.back_end.JobsRocket.model.CurriculoProfissionais;
+import com.back_end.JobsRocket.model.User;
 
 public class EntityConverter {
 	
@@ -128,5 +130,16 @@ public class EntityConverter {
 		
 		return curriculo;
 	} 
+	
+	public static User toEntityUser(UserRequestDto userDto) {
+		User user = new User();
+		
+		user.setNome(userDto.getNome());
+		user.setEmail(userDto.getEmail());
+		user.setRole(userDto.getRole());
+		user.setSenha(userDto.getSenha());
+		
+		return user;
+	}
 
 }

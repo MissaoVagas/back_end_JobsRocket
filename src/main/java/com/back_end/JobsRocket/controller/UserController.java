@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back_end.JobsRocket.dto.CandidatoDto;
 import com.back_end.JobsRocket.dto.RecrutadorDto;
-import com.back_end.JobsRocket.dto.UserDto;
+import com.back_end.JobsRocket.dto.UserRequestDto;
+import com.back_end.JobsRocket.dto.UserResponseDto;
 import com.back_end.JobsRocket.exceptions.PasswordValidationError;
 import com.back_end.JobsRocket.model.Candidato;
 import com.back_end.JobsRocket.model.Recrutador;
-import com.back_end.JobsRocket.model.User;
 import com.back_end.JobsRocket.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,8 +43,8 @@ public class UserController {
 			@ApiResponse(responseCode = "400", description = "Dados inválidos")
 	})
 	@PostMapping
-	public ResponseEntity<UserDto> createUser(@RequestBody @Valid User user) throws PasswordValidationError{
-		UserDto userDto = userService.criarUsuario(user);
+	public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid UserRequestDto user) throws PasswordValidationError{
+		UserResponseDto userDto = userService.criarUsuario(user);
 		return ResponseEntity.created(URI.create("/api/user/" + userDto.getUser_id())).body(userDto);
 	}
 	
@@ -54,7 +54,7 @@ public class UserController {
 			@ApiResponse(responseCode = "200", description = "Lista encontrada")
 	})
 	@GetMapping
-	public ResponseEntity<List<UserDto>> getUsers(){
+	public ResponseEntity<List<UserResponseDto>> getUsers(){
 		return ResponseEntity.ok(userService.listarUsuarios());
 	}
 	
