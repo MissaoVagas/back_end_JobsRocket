@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.back_end.JobsRocket.dto.CandidatoDto;
-import com.back_end.JobsRocket.dto.RecrutadorDto;
-import com.back_end.JobsRocket.dto.UserRequestDto;
+import com.back_end.JobsRocket.dto.CandidatoRequestDto;
+import com.back_end.JobsRocket.dto.CandidatoResponseDto;
+import com.back_end.JobsRocket.dto.RecrutadorRequestDto;
+import com.back_end.JobsRocket.dto.RecrutadorResponseDto;
 import com.back_end.JobsRocket.dto.UserResponseDto;
 import com.back_end.JobsRocket.exceptions.PasswordValidationError;
 import com.back_end.JobsRocket.model.Candidato;
@@ -36,29 +37,29 @@ public class UserService {
 	private RecrutadorRepository recrutadorRepository;
 	
 	@Transactional
-	public UserResponseDto criarUsuario(UserRequestDto usuarioRequest) throws PasswordValidationError {
+	public CandidatoResponseDto criarCandidato(CandidatoRequestDto candidatoRequest) throws PasswordValidationError {
+		Candidato candidato = EntityConverter.toEntityCandidato(candidatoRequest);
 		
-		User usuario = EntityConverter.toEntityUser(usuarioRequest);
-		
-		if(!Validator.validadorDeSenha(usuario.getSenha())) {
+		if(!Validator.validadorDeSenha(candidato.getSenha())) {
 			throw new PasswordValidationError("Senha deve seguir o padrao:\n -1 Letra  maíuscula,\n -1 letra minuscula,\n -1 numero,\n -1 caractere especial,\n -tamanho mínimo de 8 carcteres");
 		}
 		
-		Role role = usuario.getRole();
-		
-		if (role == Role.CANDIDATO) {
-            Candidato candidato = (Candidato) usuario;
-            Candidato savedCandidato = candidatoRepository.save(candidato);
-            return DtoConverter.toCandidatoDTO(savedCandidato);
-        } else if (role == Role.RECRUTADOR) {
-            Recrutador recrutador = (Recrutador) usuario;
-            Recrutador savedRecrutador = recrutadorRepository.save(recrutador);
-            return DtoConverter.toRecrutadorDTO(savedRecrutador);
-        } else {
-            throw new IllegalArgumentException("Tipo de usuário inválido");
-        }
-		
+		Candidato savedCandidato = candidatoRepository.save(candidato);
+        return DtoConverter.toCandidatoDTO(savedCandidato);
 	}
+	
+	@Transactional
+	public RecrutadorResponseDto criarRecrutador(RecrutadorRequestDto recrutadorRequest) throws PasswordValidationError {
+		Recrutador recrutador = EntityConverter.toEntityRecrutador(recrutadorRequest);
+		
+		if(!Validator.validadorDeSenha(recrutador.getSenha())) {
+			throw new PasswordValidationError("Senha deve seguir o padrao:\n -1 Letra  maíuscula,\n -1 letra minuscula,\n -1 numero,\n -1 caractere especial,\n -tamanho mínimo de 8 carcteres");
+		}
+		
+        return DtoConverter.toRecrutadorDTO(recrutadorRepository.save(recrutador));
+	}
+	
+	
 	
 	public List<UserResponseDto> listarUsuarios(){
 		List<User> usuarios = userRepository.findAll();
@@ -82,7 +83,10 @@ public class UserService {
     }
 	
 	@Transactional
-	public CandidatoDto atualizarCandidato(Candidato candidato, Integer candidatoId) throws PasswordValidationError {
+	public CandidatoResponseDto atualizarCandidato(CandidatoRequestDto candidatoRequest, Integer candidatoId) throws PasswordValidationError {
+		
+		Candidato candidato = EntityConverter.toEntityCandidato(candidatoRequest);
+		
 		Candidato candidatoExistente = candidatoRepository.findById(candidatoId)
                 .orElseThrow(() -> new EntityNotFoundException("Candidato não encontrado com o ID: " + candidatoId));
 		
@@ -102,7 +106,10 @@ public class UserService {
 	}
 	
 	@Transactional
-	public RecrutadorDto atualizarRecrutador(Recrutador recrutador, Integer recrutadorId) throws PasswordValidationError {
+	public RecrutadorResponseDto atualizarRecrutador(RecrutadorRequestDto recrutadorRequest, Integer recrutadorId) throws PasswordValidationError {
+		
+		Recrutador recrutador = EntityConverter.toEntityRecrutador(recrutadorRequest);
+		
 		Recrutador recrutadorExistente = recrutadorRepository.findById(recrutadorId)
                 .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado com o ID: " + recrutadorId));
 		

@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.back_end.JobsRocket.dto.CandidatoDto;
-import com.back_end.JobsRocket.dto.RecrutadorDto;
-import com.back_end.JobsRocket.dto.UserRequestDto;
+import com.back_end.JobsRocket.dto.CandidatoRequestDto;
+import com.back_end.JobsRocket.dto.CandidatoResponseDto;
+import com.back_end.JobsRocket.dto.RecrutadorRequestDto;
+import com.back_end.JobsRocket.dto.RecrutadorResponseDto;
 import com.back_end.JobsRocket.dto.UserResponseDto;
 import com.back_end.JobsRocket.exceptions.PasswordValidationError;
-import com.back_end.JobsRocket.model.Candidato;
-import com.back_end.JobsRocket.model.Recrutador;
 import com.back_end.JobsRocket.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,15 +35,28 @@ public class UserController {
 	UserService userService;
 	
 	
-	@Operation(summary = "Criar um novo usuário", 
-            description = "Cria um novo usuario e retorna os detalhes do usuario criado")
+	@Operation(summary = "Criar um novo usuário candidato", 
+            description = "Cria um novo usuario candidato e retorna os detalhes do usuario criado")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Usuario criado com sucesso"),
 			@ApiResponse(responseCode = "400", description = "Dados inválidos")
 	})
-	@PostMapping
-	public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid UserRequestDto user) throws PasswordValidationError{
-		UserResponseDto userDto = userService.criarUsuario(user);
+	@PostMapping("/candidato")
+	public ResponseEntity<CandidatoResponseDto> createUserCandidato(@RequestBody @Valid CandidatoRequestDto user) throws PasswordValidationError{
+		CandidatoResponseDto userDto = userService.criarCandidato(user);
+		return ResponseEntity.created(URI.create("/api/user/" + userDto.getUser_id())).body(userDto);
+	}
+	
+	
+	@Operation(summary = "Criar um novo usuário recrutador", 
+            description = "Cria um novo usuario recrutador e retorna os detalhes do usuario criado")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Usuario criado com sucesso"),
+			@ApiResponse(responseCode = "400", description = "Dados inválidos")
+	})
+	@PostMapping("/recrutador")
+	public ResponseEntity<RecrutadorResponseDto> createUserRecrutador(@RequestBody @Valid RecrutadorRequestDto user) throws PasswordValidationError{
+		RecrutadorResponseDto userDto = userService.criarRecrutador(user);
 		return ResponseEntity.created(URI.create("/api/user/" + userDto.getUser_id())).body(userDto);
 	}
 	
@@ -66,8 +78,8 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "Candidato não encontrado"),
 	})
 	@PutMapping("/candidato/{candidatoId}")
-	public ResponseEntity<CandidatoDto> updateCandidato(
-			@RequestBody Candidato candidato, @PathVariable Integer candidatoId
+	public ResponseEntity<CandidatoResponseDto> updateCandidato(
+			@RequestBody CandidatoRequestDto candidato, @PathVariable Integer candidatoId
 			) throws PasswordValidationError{
 		return ResponseEntity.ok(userService.atualizarCandidato(candidato, candidatoId));
 	}
@@ -80,8 +92,8 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "Recrutador não encontrado"),
 	})
 	@PutMapping("/recrutador/{recrutadorId}")
-	public ResponseEntity<RecrutadorDto> updateRecrutador(
-			@RequestBody Recrutador recrutador, @PathVariable Integer recrutadorId
+	public ResponseEntity<RecrutadorResponseDto> updateRecrutador(
+			@RequestBody RecrutadorRequestDto recrutador, @PathVariable Integer recrutadorId
 			) throws PasswordValidationError{
 		return ResponseEntity.ok(userService.atualizarRecrutador(recrutador, recrutadorId));
 	}
@@ -105,8 +117,8 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
 	})
 	@GetMapping("/id/{userId}")
-	public void getUserById(@PathVariable Integer userId) {
-		userService.acharUsuarioPorId(userId);
+	public UserResponseDto getUserById(@PathVariable Integer userId) {
+		return userService.acharUsuarioPorId(userId);
 	}
 	
 	@Operation(summary = "Achar um usuario pelo email", 
@@ -116,8 +128,8 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
 	})
 	@GetMapping("/email/{email}")
-	public void getUserByEmail(@PathVariable String email) {
-		userService.acharUsuarioPorEmail(email);
+	public UserResponseDto getUserByEmail(@PathVariable String email) {
+		return userService.acharUsuarioPorEmail(email);
 	}
 
 }

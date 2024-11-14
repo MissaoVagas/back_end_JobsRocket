@@ -9,12 +9,13 @@ import com.back_end.JobsRocket.dto.*;
 
 public class DtoConverter {
 
-	public static CandidatoDto toCandidatoDTO(Candidato candidato) {
-        CandidatoDto dto = new CandidatoDto();
+	public static CandidatoResponseDto toCandidatoDTO(Candidato candidato) {
+        CandidatoResponseDto dto = new CandidatoResponseDto();
         dto.setUser_id(candidato.getUser_id());
         dto.setNome(candidato.getNome());
         dto.setEmail(candidato.getEmail());
         dto.setCampoDeInteresse(candidato.getCampoDeInteresse());
+        dto.setRole(candidato.getRole());
         
         if (candidato.getCurriculo() != null) {
         	Curriculo curriculoDTO = new Curriculo();
@@ -24,12 +25,13 @@ public class DtoConverter {
         return dto;
     }
 
-	public static RecrutadorDto toRecrutadorDTO(Recrutador recrutador) {
-    	RecrutadorDto dto = new RecrutadorDto();
+	public static RecrutadorResponseDto toRecrutadorDTO(Recrutador recrutador) {
+    	RecrutadorResponseDto dto = new RecrutadorResponseDto();
     	dto.setUser_id(recrutador.getUser_id());
         dto.setNome(recrutador.getNome());
         dto.setEmail(recrutador.getEmail());
         dto.setNomeEmpresa(recrutador.getNomeEmpresa());
+        dto.setRole(recrutador.getRole());
         return dto;
     }
 	

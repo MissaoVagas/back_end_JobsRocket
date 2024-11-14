@@ -3,19 +3,24 @@ package com.back_end.JobsRocket.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.back_end.JobsRocket.dto.CandidatoRequestDto;
 import com.back_end.JobsRocket.dto.CurriculoAcademicosDto;
 import com.back_end.JobsRocket.dto.CurriculoCursosDto;
 import com.back_end.JobsRocket.dto.CurriculoPessoaisDto;
 import com.back_end.JobsRocket.dto.CurriculoPrincipaisDto;
 import com.back_end.JobsRocket.dto.CurriculoProfissionaisDto;
 import com.back_end.JobsRocket.dto.CurriculoRequestDto;
+import com.back_end.JobsRocket.dto.RecrutadorRequestDto;
+import com.back_end.JobsRocket.dto.RecrutadorResponseDto;
 import com.back_end.JobsRocket.dto.UserRequestDto;
+import com.back_end.JobsRocket.model.Candidato;
 import com.back_end.JobsRocket.model.Curriculo;
 import com.back_end.JobsRocket.model.CurriculoAcademicos;
 import com.back_end.JobsRocket.model.CurriculoCursos;
 import com.back_end.JobsRocket.model.CurriculoPessoais;
 import com.back_end.JobsRocket.model.CurriculoPrincipais;
 import com.back_end.JobsRocket.model.CurriculoProfissionais;
+import com.back_end.JobsRocket.model.Recrutador;
 import com.back_end.JobsRocket.model.User;
 
 public class EntityConverter {
@@ -140,6 +145,32 @@ public class EntityConverter {
 		user.setSenha(userDto.getSenha());
 		
 		return user;
+	}
+	
+	public static Candidato toEntityCandidato(CandidatoRequestDto candidatoDto) {
+		
+		Candidato candidato = new Candidato();
+		
+		candidato.setCampoDeInteresse(candidatoDto.getCampoDeInteresse());
+		candidato.setEmail(candidatoDto.getEmail());
+		candidato.setNome(candidatoDto.getNome());
+		candidato.setRole(candidatoDto.getRole());
+		candidato.setSenha(candidatoDto.getSenha());
+		
+		return candidato;
+	}
+	
+public static Recrutador toEntityRecrutador(RecrutadorRequestDto recrutadorDto) {
+		
+		Recrutador recrutador = new Recrutador();
+		
+		recrutador.setNomeEmpresa(recrutadorDto.getNomeEmpresa());
+		recrutador.setEmail(recrutadorDto.getEmail());
+		recrutador.setNome(recrutadorDto.getNome());
+		recrutador.setRole(recrutadorDto.getRole());
+		recrutador.setSenha(recrutadorDto.getSenha());
+		
+		return recrutador;
 	}
 
 }
