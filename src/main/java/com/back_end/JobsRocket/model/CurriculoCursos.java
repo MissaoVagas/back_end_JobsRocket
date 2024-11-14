@@ -1,5 +1,7 @@
 package com.back_end.JobsRocket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +34,6 @@ public class CurriculoCursos {
     
     @ManyToOne
     @JoinColumn(name = "curriculo_id")
+    @JsonIgnore
     private Curriculo curriculo;
 }

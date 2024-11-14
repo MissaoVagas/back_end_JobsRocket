@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Data
 @Table(name = "curriculo_pessoais")
@@ -43,5 +45,6 @@ public class CurriculoPessoais {
 
     @OneToOne
     @JoinColumn(name = "curriculo_id")
+    @JsonIgnore
     private Curriculo curriculo;
 }

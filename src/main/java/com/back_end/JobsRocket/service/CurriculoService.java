@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.back_end.JobsRocket.dto.CurriculoRequestDto;
+import com.back_end.JobsRocket.dto.CurriculoResponseDto;
 import com.back_end.JobsRocket.model.Candidato;
 import com.back_end.JobsRocket.model.Curriculo;
 import com.back_end.JobsRocket.model.CurriculoAcademicos;
@@ -16,6 +17,7 @@ import com.back_end.JobsRocket.model.CurriculoPrincipais;
 import com.back_end.JobsRocket.model.CurriculoProfissionais;
 import com.back_end.JobsRocket.repository.CandidatoRepository;
 import com.back_end.JobsRocket.repository.CurriculoRepository;
+import com.back_end.JobsRocket.utils.DtoConverter;
 import com.back_end.JobsRocket.utils.EntityConverter;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -46,7 +48,7 @@ public class CurriculoService {
 	
 	
 	@Transactional
-	public Curriculo criarCurriculo(CurriculoRequestDto curriculoRequest, Integer candidato_id) {
+	public CurriculoResponseDto criarCurriculo(CurriculoRequestDto curriculoRequest, Integer candidato_id) {
 		
 		Curriculo curriculo = EntityConverter.toEntityCurriculo(curriculoRequest);
 		
@@ -82,16 +84,25 @@ public class CurriculoService {
 	    }
 
 	    // Salva o Curriculo e todas as entidades associadas devido ao CascadeType.ALL
-	    return curriculoRepository.save(curriculo);
+	    Curriculo curriculoSalvo = curriculoRepository.save(curriculo);
+	    
+	    return DtoConverter.toCurriculoResponseDto(curriculoSalvo);
 	}
 	
 	@Transactional
-	public List<Curriculo> listarCurriculos(){
-		return curriculoRepository.findAll();
+	public List<CurriculoResponseDto> listarCurriculos(){
+		return DtoConverter.toCurriculoResponseDtoList(curriculoRepository.findAll());
 	}
 	
 	@Transactional
-	public Curriculo atualizarCurriculo(Curriculo curriculo, Integer curriculo_id) {
+	public CurriculoResponseDto acharCurriculoPorId(Integer curriculo_id) {
+		Curriculo curriculoExistente = curriculoRepository.findById(curriculo_id)
+	            .orElseThrow(() -> new EntityNotFoundException("Curriculo não encontrado com o ID " + curriculo_id));
+		return DtoConverter.toCurriculoResponseDto(curriculoExistente);
+	}
+	
+	@Transactional
+	public CurriculoResponseDto atualizarCurriculo(Curriculo curriculo, Integer curriculo_id) {
 		Curriculo curriculoExistente = curriculoRepository.findById(curriculo_id)
 	            .orElseThrow(() -> new EntityNotFoundException("Curriculo não encontrado com o ID " + curriculo_id));
 		
@@ -126,14 +137,15 @@ public class CurriculoService {
 	    }
 
 	    // Salva o Curriculo atualizado e suas associações (cascade all cuidará das mudanças)
-	    return curriculoRepository.save(curriculoExistente);
+	    return DtoConverter.toCurriculoResponseDto(curriculoRepository.save(curriculoExistente));
 	}
 	
 	@Transactional
 	public void deletarCurriculo(Integer curriculo_id) {
 		Curriculo curriculoExistente = curriculoRepository.findById(curriculo_id)
 	            .orElseThrow(() -> new EntityNotFoundException("Curriculo não encontrado com o ID " + curriculo_id));
-		
+		pessoaisService.deletar(curriculoExistente.getPessoais().getPessoais_id());
+		principaisService.deletar(curriculoExistente.getPrincipais().getPrincipais_id());
 		curriculoRepository.delete(curriculoExistente);
 	}
 

@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 import com.back_end.JobsRocket.model.enums.TipoEmprego;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data
@@ -37,5 +38,6 @@ public class CurriculoProfissionais {
     // Relacionamento com Curriculo (se necessário)
     @ManyToOne
     @JoinColumn(name = "curriculo_id")
+    @JsonIgnore
     private Curriculo curriculo;
 }

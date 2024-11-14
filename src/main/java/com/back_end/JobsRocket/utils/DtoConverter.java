@@ -55,4 +55,29 @@ public class DtoConverter {
 		return userDtos;
 		
 	}
+	
+	public static CurriculoResponseDto toCurriculoResponseDto(Curriculo curriculo) {
+		CurriculoResponseDto responseDto = new CurriculoResponseDto();
+		
+		responseDto.setCandidato_id(curriculo.getCandidato().getUser_id());
+		responseDto.setCurriculo_id(curriculo.getCurriculo_id());
+		responseDto.setAcademicos(curriculo.getAcademicos());
+		responseDto.setCursos(curriculo.getCursos());
+		responseDto.setPessoais(curriculo.getPessoais());
+		responseDto.setPrincipais(curriculo.getPrincipais());
+		responseDto.setProfissionais(curriculo.getProfissionais());
+		
+		return responseDto;
+	}
+	
+	public static List<CurriculoResponseDto> toCurriculoResponseDtoList(List<Curriculo> curriculosList){
+		List<CurriculoResponseDto> curriculosDtoList = new ArrayList<>();
+		
+		for(Curriculo curriculo: curriculosList) {
+			CurriculoResponseDto curriculoResponseDto = DtoConverter.toCurriculoResponseDto(curriculo);
+			curriculosDtoList.add(curriculoResponseDto);
+		}
+		
+		return curriculosDtoList;
+	}
 }
