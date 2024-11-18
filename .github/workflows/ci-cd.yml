@@ -54,8 +54,8 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-      - name: Run tests
-        run: mvn test
+      # - name: Run tests
+      #   run: mvn test
 
   deploy:
     runs-on: ubuntu-latest
