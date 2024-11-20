@@ -28,7 +28,7 @@ public class CurriculoRepositoryTest {
     public void testSaveCurriculo() {
         // Arrange
         Candidato candidato = new Candidato();
-        candidato.setUserId(1);  // Por exemplo, um ID fictício para o candidato
+        candidato.setUser_id(1);  // Por exemplo, um ID fictício para o candidato
 
         Curriculo curriculo = new Curriculo();
         curriculo.setCandidato(candidato);
@@ -39,7 +39,7 @@ public class CurriculoRepositoryTest {
 
         // Assert
         assertThat(savedCurriculo).isNotNull();
-        assertThat(savedCurriculo.getCurriculoId()).isGreaterThan(0);
+        assertThat(savedCurriculo.getCurriculo_id()).isGreaterThan(0);
         assertThat(savedCurriculo.getCandidato()).isEqualTo(candidato);
     }
 
@@ -47,25 +47,25 @@ public class CurriculoRepositoryTest {
     public void testFindById() {
         // Arrange
         Candidato candidato = new Candidato();
-        candidato.setUserId(2); // Um ID fictício para o candidato
+        candidato.setUser_id(2); // Um ID fictício para o candidato
 
         Curriculo curriculo = new Curriculo();
         curriculo.setCandidato(candidato);
         curriculo = curriculoRepository.save(curriculo); // Salva no banco
 
         // Act
-        Curriculo foundCurriculo = curriculoRepository.findById(curriculo.getCurriculoId()).orElse(null);
+        Curriculo foundCurriculo = curriculoRepository.findById(curriculo.getCurriculo_id()).orElse(null);
 
         // Assert
         assertThat(foundCurriculo).isNotNull();
-        assertThat(foundCurriculo.getCurriculoId()).isEqualTo(curriculo.getCurriculoId());
+        assertThat(foundCurriculo.getCurriculo_id()).isEqualTo(curriculo.getCurriculo_id());
     }
 
     @Test
     public void testDeleteCurriculo() {
         // Arrange
         Candidato candidato = new Candidato();
-        candidato.setUserId(3); // Um ID fictício para o candidato
+        candidato.setUser_id(3); // Um ID fictício para o candidato
 
         Curriculo curriculo = new Curriculo();
         curriculo.setCandidato(candidato);
@@ -75,7 +75,7 @@ public class CurriculoRepositoryTest {
         curriculoRepository.delete(curriculo);
 
         // Assert
-        Curriculo deletedCurriculo = curriculoRepository.findById(curriculo.getCurriculoId()).orElse(null);
+        Curriculo deletedCurriculo = curriculoRepository.findById(curriculo.getCurriculo_id()).orElse(null);
         assertThat(deletedCurriculo).isNull();
     }
 
@@ -83,10 +83,10 @@ public class CurriculoRepositoryTest {
     public void testFindAllCurriculos() {
         // Arrange
         Candidato candidato1 = new Candidato();
-        candidato1.setUserId(4); // ID fictício para o candidato 1
+        candidato1.setUser_id(4); // ID fictício para o candidato 1
 
         Candidato candidato2 = new Candidato();
-        candidato2.setUserId(5); // ID fictício para o candidato 2
+        candidato2.setUser_id(5); // ID fictício para o candidato 2
 
         Curriculo curriculo1 = new Curriculo();
         curriculo1.setCandidato(candidato1);

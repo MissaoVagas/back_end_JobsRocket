@@ -21,7 +21,7 @@ public class CurriculoAcademicosRepositoryTest {
     public void setUp() {
         CurriculoAcademicos academico = new CurriculoAcademicos();
         academico.setNomeFaculdade("Universidade XYZ");
-        academico.setStatusFaculdade(Status.ATIVO);
+        academico.setStatusFaculdade(Status.EM_ANDAMENTO);
         curriculoAcademicosRepository.save(academico);
     }
 

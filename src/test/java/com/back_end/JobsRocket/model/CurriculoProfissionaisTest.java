@@ -14,12 +14,12 @@ public class CurriculoProfissionaisTest {
         profissionais.setCargo("Desenvolvedor");
         profissionais.setDataInicio(new Date());
         profissionais.setDataFinal(new Date());
-        profissionais.setTipoEmprego(TipoEmprego.FULL_TIME); // Supondo que TipoEmprego é um enum
+        profissionais.setTipoEmprego(TipoEmprego.ESTAGIO); // Supondo que TipoEmprego é um enum
 
         assertEquals("Empresa ABC", profissionais.getNomeEmpresa());
         assertEquals("Desenvolvedor", profissionais.getCargo());
         assertNotNull(profissionais.getDataInicio());
         assertNotNull(profissionais.getDataFinal());
-        assertEquals(TipoEmprego.FULL_TIME, profissionais.getTipoEmprego());
+        assertEquals(TipoEmprego.ESTAGIO, profissionais.getTipoEmprego());
     }
 }

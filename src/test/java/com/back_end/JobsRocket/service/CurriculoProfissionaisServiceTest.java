@@ -79,7 +79,7 @@ public class CurriculoProfissionaisServiceTest {
 
         when(repository.save(any(CurriculoProfissionais.class))).thenReturn(novoDados);
 
-        CurriculoProfissionais updated = service.atualizar(novoDados, 1);
+        CurriculoProfissionais updated = service.atualizar(novoDados);
         
         assertThat(updated).isNotNull();
         assertThat(updated.getNomeEmpresa()).isEqualTo("Nova Empresa");

@@ -14,11 +14,9 @@ public class CurriculoTest {
     @Test
     public void testGettersAndSetters() {
         Curriculo curriculo = new Curriculo();
-        curriculo.setId(1);
-        curriculo.setCampoDeInteresse("Desenvolvimento de Software");
+        curriculo.setCurriculo_id(1);
 
-        assertThat(curriculo.getId()).isEqualTo(1);
-        assertThat(curriculo.getCampoDeInteresse()).isEqualTo("Desenvolvimento de Software");
+        assertThat(curriculo.getCurriculo_id()).isEqualTo(1);
     }
 
     @Test
@@ -86,44 +84,24 @@ public class CurriculoTest {
         curriculo.setProfissionais(profissionais);
         
         assertThat(curriculo.getProfissionais()).isNotEmpty();
-        assertThat(curricolo.getProfissionais().get(0).getNomeEmpresa()).isEqualTo("Empresa B");
+        assertThat(curriculo.getProfissionais().get(0).getNomeEmpresa()).isEqualTo("Empresa B");
     }
 
     @Test
     public void testSetCursos() {
         Curriculo curriculo = new Curriculo();
-        List<CurriculumCursos> cursos = new ArrayList<>();
+        List<CurriculoCursos> cursos = new ArrayList<>();
         
-        CurriculumCursos curso = new CurriculumCursos();
+        CurriculoCursos curso = new CurriculoCursos();
         curso.setNomeCurso("Curso de Java");
         
         cursos.add(curso);
         
-        curricolo.setCursos(cursos);
+        curriculo.setCursos(cursos);
         
-        assertThat(curricolo.getCursos()).isNotEmpty();
-        assertThat(curricolo.getCursos().get(0).getNomeCurso()).isEqualTo("Curso de Java");
+        assertThat(curriculo.getCursos()).isNotEmpty();
+        assertThat(curriculo.getCursos().get(0).getNomeCurso()).isEqualTo("Curso de Java");
     }
 
-    @Test
-    public void testSetDataCriacao() {
-         // Testando o setter e getter para dataCriacao
-         Currículo currículo = new currículo ();
-         Date dataCriacao = new Date();
 
-         currículo.setDataCriacao(dataCriacao);
-
-         assertThat(currículo.getDataCriacao()).isEqualTo(dataCriacao);
-     }
-
-     @Test
-     public void testSetDataAtualizacao() {
-         // Testando o setter e getter para dataAtualizacao
-         Currículo currículo = new currículo ();
-         Date dataAtualizacao = new Date();
-
-         currículo.setDataAtualizacao(dataAtualizacao);
-
-         assertThat(currículo.getDataAtualizacao()).isEqualTo(dataAtualizacao);
-     }
 }

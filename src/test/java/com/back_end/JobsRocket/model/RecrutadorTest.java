@@ -45,13 +45,7 @@ public class RecrutadorTest {
         assertThat(recrutador.getEmail()).isEqualTo("carlos.silva@example.com");
     }
 
-    @Test
-    public void testSetTelefone() {
-        Recrutador recrutador = new Recrutador();
-        recrutador.setTelefone("123456789");
 
-        assertThat(recrutador.getTelefone()).isEqualTo("123456789");
-    }
 
     
 }

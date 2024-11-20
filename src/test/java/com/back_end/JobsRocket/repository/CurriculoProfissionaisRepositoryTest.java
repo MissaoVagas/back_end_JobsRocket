@@ -24,7 +24,7 @@ public class CurriculoProfissionaisRepositoryTest {
         profissionais.setNomeEmpresa("Empresa ABC");
         profissionais.setCargo("Desenvolvedor");
         profissionais.setDataInicio(new Date());
-        profissionais.setTipoEmprego(TipoEmprego.FULL_TIME); // Supondo que FULL_TIME é um valor do enum TipoEmprego
+        profissionais.setTipoEmprego(TipoEmprego.ESTAGIO); // Supondo que FULL_TIME é um valor do enum TipoEmprego
         curriculoProfissionaisRepository.save(profissionais);
     }
 
@@ -44,8 +44,8 @@ public class CurriculoProfissionaisRepositoryTest {
 
     @Test
     public void testFindByTipoEmprego() {
-        List<CurriculoProfissionais> resultados = curriculoProfissionaisRepository.findByTipoEmprego(TipoEmprego.FULL_TIME);
+        List<CurriculoProfissionais> resultados = curriculoProfissionaisRepository.findByTipoEmprego(TipoEmprego.ESTAGIO);
         assertThat(resultados).isNotEmpty();
-        assertThat(resultados.get(0).getTipoEmprego()).isEqualTo(TipoEmprego.FULL_TIME);
+        assertThat(resultados.get(0).getTipoEmprego()).isEqualTo(TipoEmprego.ESTAGIO);
     }
 }

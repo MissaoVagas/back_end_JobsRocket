@@ -11,12 +11,12 @@ public class UserTest {
         User user = new User();
         user.setNome("Maria Oliveira");
         user.setEmail("maria.oliveira@example.com");
-        user.setRole(Role.USER); 
+        user.setRole(Role.CANDIDATO); 
         user.setSenha("senhaSegura123");
 
         assertEquals("Maria Oliveira", user.getNome());
         assertEquals("maria.oliveira@example.com", user.getEmail());
-        assertEquals(Role.USER, user.getRole());
+        assertEquals(Role.CANDIDATO, user.getRole());
         assertEquals("senhaSegura123", user.getSenha());
     }
 
